@@ -13,11 +13,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
+import com.brillicaservices.gurjas.firebasemoviessample.database.DatabaseHelper;
 import com.brillicaservices.gurjas.firebasemoviessample.movies.MovieListAdapter;
 import com.brillicaservices.gurjas.firebasemoviessample.movies.MoviesModelView;
+import com.brillicaservices.gurjas.firebasemoviessample.series.SeriesActivity;
+import com.brillicaservices.gurjas.firebasemoviessample.series.SeriesListAdapter;
+import com.brillicaservices.gurjas.firebasemoviessample.series.SeriesModelView;
 
 import java.util.ArrayList;
 
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity
     RecyclerView recyclerView;
     MovieListAdapter movieListAdapter;
     ArrayList<MoviesModelView> moviesModelViewArrayList = new ArrayList<>();
+
 
     /*TODO(0): Click on File>Settings>Plugins>Browser Respositories> Android Drawable Importer. Install the plugin to add images.
     * TODO(1): Now, right click on drawable> New> Batch Drawable. to import all the images and into different sizes like mdpi, hdpi, xhdpi etc.
@@ -38,7 +42,7 @@ public class MainActivity extends AppCompatActivity
     * TODO(7): Implement onClickListener on Movies, Series. On Click it should display a toast message, containing the movie name.
     * TODO(8): Implement all the required classes into Manifest file.
     * TODO(9): Test and debug the application and share it on github.*/
-
+DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +67,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        databaseHelper=new DatabaseHelper(this);
+        moviesModelViewArrayList.addAll(databaseHelper.allStudentsDetails());
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -71,37 +77,44 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        getListOfMovies();
+       // getListOfMovies();
         movieListAdapter = new MovieListAdapter(moviesModelViewArrayList);
         recyclerView.setAdapter(movieListAdapter);
+
+
+
+
+
     }
 
-    private void getListOfMovies() {
-        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
-                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.dark_knight));
-        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
-                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.avengers_infinity_war));
-        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
-                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.deadpool));
-        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
-                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.fast_furious_7));
-        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
-                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.fight_club));
-        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
-                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.dark_knight));
-        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
-                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.wanted));
-        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
-                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.lion_king));
-        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
-                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.john_wick));
-        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
-                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.pursuit_of_happiness));
-        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
-                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.iron_man_3));
-        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
-                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.dark_knight));
-    }
+//    private void getListOfMovies() {
+//        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
+//                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.dark_knight));
+//        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
+//                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.avengers_infinity_war));
+//        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
+//                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.deadpool));
+//        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
+//                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.fast_furious_7));
+//        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
+//                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.fight_club));
+//        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
+//                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.dark_knight));
+//        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
+//                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.wanted));
+//        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
+//                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.lion_king));
+//        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
+//                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.john_wick));
+//        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
+//                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.pursuit_of_happiness));
+//        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
+//                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.iron_man_3));
+//        moviesModelViewArrayList.add(new MoviesModelView("Dark Knight Rises", "Starring: Christain Bale " +
+//                "\nThis movie is second in series of Batman", 2018, 4, R.drawable.dark_knight));
+//    }
+
+
 
     @Override
     public void onBackPressed() {
@@ -118,12 +131,16 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_movies) {
 
-        } else if (id == R.id.nav_series) {
-            // start activity for series
-        } else if (id == R.id.nav_about_us) {
+        }
+        else if (id == R.id.nav_series)
+        {
+       Intent intent1=new Intent(MainActivity.this, SeriesActivity.class);
+       startActivity(intent1);
+        }
+        else if (id == R.id.nav_about_us)
+        {
             Intent intent = new Intent(MainActivity.this, AboutMe.class);
             startActivity(intent);
         }

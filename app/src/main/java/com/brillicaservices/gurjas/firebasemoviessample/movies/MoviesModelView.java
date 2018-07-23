@@ -4,10 +4,20 @@ public class MoviesModelView {
     String title;
     int releaseYear;
     String description;
-    int rating;
+    double rating;
     int image;
+    int id;
 
-    public MoviesModelView(String title, String description, int releaseYear, int rating, int image) {
+    public MoviesModelView(int id,String title, String description, int releaseYear, int rating, int image) {
+        this.id=id;
+        this.title = title;
+        this.description = description;
+        this.releaseYear = releaseYear;
+        this.rating = rating;
+        this.image = image;
+    }
+    public MoviesModelView(String title, String description, int releaseYear,double rating,int image) {
+//
         this.title = title;
         this.description = description;
         this.releaseYear = releaseYear;
@@ -15,11 +25,18 @@ public class MoviesModelView {
         this.image = image;
     }
 
+    public MoviesModelView() {
+
+    }
+
+
+
+
     public int getImage() {
         return image;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
@@ -34,6 +51,8 @@ public class MoviesModelView {
     public String getTitle() {
         return title;
     }
+
+    public int getId(){return id;}
 
     public void setDescription(String description) {
         this.description = description;
@@ -53,5 +72,8 @@ public class MoviesModelView {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 }

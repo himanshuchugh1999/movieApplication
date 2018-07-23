@@ -45,6 +45,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         return moviesModelViewArrayList.size();
     }
 
+    public interface ListItemClickListener {
+    }
+
     public class MovieViewHolder extends RecyclerView.ViewHolder {
         ImageView movieThumbnail;
         TextView movieName, movieDescription, rating;

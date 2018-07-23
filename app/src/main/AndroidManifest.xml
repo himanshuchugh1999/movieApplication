@@ -22,9 +22,12 @@
         <activity android:name=".AddNewItem"
             android:parentActivityName=".MainActivity"
             android:label="Add New Movie"/>
-        <activity android:name=".AboutMe"
-            android:parentActivityName=".MainActivity"
-            android:label="About Me"/>
+        <activity android:name=".AboutMe"/>
+            <!--android:parentActivityName=".MainActivity"-->
+            <!--android:label="About Me"/>-->
+        <activity android:name=".series.SeriesActivity"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
 
 </manifest>
