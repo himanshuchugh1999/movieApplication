@@ -48,16 +48,16 @@ public class AddNewItem extends AppCompatActivity implements AdapterView.OnItemS
             R.drawable.wanted};
     String categories = "";
     EditText title, description, year;
-       RatingBar rating;
+    RatingBar rating;
     private DatabaseReference database;
-int selectImage=0;
+    int selectImage =0 ;
     Spinner category, movieThumbnail;
     TextView save;
     DatabaseHelper databaseHelper;
     ArrayList<MoviesModelView> moviesModelViewArrayList = new ArrayList<>();
     String items[] = {"Select ", "MOVIE", "SERIES"};
 
-//    @SuppressLint("WrongViewCast")
+    //    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,16 +98,15 @@ int selectImage=0;
             public void onClick(View view) {
 //
 
-                if (category.getSelectedItem().toString().equals("MOVIE"))
-                {
+                if (category.getSelectedItem().toString().equals("MOVIE")) {
                     databaseHelper = new DatabaseHelper(getApplicationContext());
                     String name = title.getText().toString().trim();
                     String des = description.getText().toString().trim();
-                    double ra = (double)rating.getRating();
+                    double ra = (double) rating.getRating();
                     int yea = Integer.parseInt(year.getText().toString().trim());
 //                    moviesModelViewArrayList.addAll(databaseHelper.allStudentsDetails());
                     databaseHelper.addNew(new MoviesModelView(name,
-                            des, yea,ra,selectImage));
+                            des, yea, ra, selectImage));
 
                     Toast.makeText(getApplicationContext(),
                             "Student data saved successfully",
@@ -115,28 +114,27 @@ int selectImage=0;
                 } else {
 
 
-
-
-                String name = title.getText().toString().trim();
-                String des = description.getText().toString().trim();
-               double ra = (double)rating.getRating();
-                int yea = Integer.parseInt(year.getText().toString().trim());
-                HashMap<String, Object> hashMap = new HashMap<String, Object>();
-                hashMap.put("title", name);
-                hashMap.put("description", des);
-                hashMap.put("releaseyear", yea);
-                hashMap.put("rating", ra);
-                Toast.makeText(AddNewItem.this, "stored", Toast.LENGTH_LONG);
-                database.push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(AddNewItem.this, "stored", Toast.LENGTH_LONG);
-                        } else {
-                            Toast.makeText(AddNewItem.this, "not stored", Toast.LENGTH_LONG);
+                    String name = title.getText().toString().trim();
+                    String des = description.getText().toString().trim();
+                    double ra = (double) rating.getRating();
+                    int yea = Integer.parseInt(year.getText().toString().trim());
+                    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+                    hashMap.put("title", name);
+                    hashMap.put("description", des);
+                    hashMap.put("releaseyear", yea);
+                    hashMap.put("rating", ra);
+                    Toast.makeText(AddNewItem.this, "stored", Toast.LENGTH_LONG);
+                    database.push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(AddNewItem.this, "stored", Toast.LENGTH_LONG);
+                            } else {
+                                Toast.makeText(AddNewItem.this, "not stored", Toast.LENGTH_LONG);
+                            }
                         }
-                    }
-                });}
+                    });
+                }
             }
         });
     }
@@ -144,7 +142,7 @@ int selectImage=0;
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         categories = items[position];
-        selectImage=imagesArray[position];
+        selectImage = imagesArray[position];
 //        String selectedClass = parent.getItemAtPosition(position).toString();
 //        switch (selectedClass)
 //        {
@@ -170,7 +168,7 @@ int selectImage=0;
 //        divSpinner.setVisibility(View.VISIBLE);
 //    }
 //
-   }
+    }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
